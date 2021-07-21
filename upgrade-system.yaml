@@ -1,0 +1,13 @@
+- name: Upgrade System
+  hosts: all
+  tasks:
+    - name: Upgrade all packages RedHat
+      yum: name=* state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Upgrade all packages Debian
+      apt: name=* state=latest
+      when: ansible_os_family == "Debian"
+
+    - name: Restart system after upgrade.
+      command: "shutdown -r"
